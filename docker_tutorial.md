@@ -1,3 +1,15 @@
+##### 📦🛠️ **Build the Docker Image**
+
+To create a Docker image from your project, use the following command:
+
+docker build -t express-docker-image .
+
+- docker build: Tells Docker to create a new image.
+
+- -t express-docker-image: Tags the image with the name express-docker-image.
+
+- .: Tells Docker to use the Dockerfile in the current directory
+
 1. ##### **Run a Container**
 
 docker run --name express-docker-container -d -p 4000:4000 express-docker-image
@@ -162,6 +174,7 @@ Use -f to choose the desired file.
 ====================================================
 
 #### 🧼 **Clean Docker Compose Setup**
+
 📁  
 docker-compose.yml – Contains common configuration for all environments.
 
@@ -171,4 +184,51 @@ docker-compose.prod.yml – Contains production-specific overrides.
 
 =====================================================================
 
-#### install specific dependency for production and development 
+#### 🎯 Installing Environment-Specific Dependencies & Avoiding Nodemon in Production
+
+---
+
+##### 🚧 1. Run the Project in Development Mode
+
+To run the project **without Nodemon** (pure Node.js), add the following line under the relevant service in your `docker-compose.dev.yml`:
+
+```yaml
+command: npm run start-dev
+```
+
+#### 🚧 2. Install Dependencies Based on Environment
+
+Add the following to your configuration files:
+
+###### 🐳 Dockerfile
+
+ARG NODE_ENV
+RUN if [ "$NODE_ENV" = "production" ]; then \
+ npm install --only=production; \
+ else \
+ npm install; \
+ fi
+
+###### 🧪 docker-compose.dev.yml
+
+```
+build:
+context: .
+args: - NODE_ENV=development
+```
+
+###### 🚀 docker-compose.prod.yml
+
+```
+build:
+context: .
+args: - NODE_ENV=production
+```
+
+✅ What This Setup Does:
+
+🛠️ In development, it installs all dependencies (including dev ones).
+
+🚀 In production, it installs only production dependencies.
+
+🔁 Helps avoid using Nodemon in environments where it’s not needed.

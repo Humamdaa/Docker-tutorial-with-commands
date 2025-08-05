@@ -1,5 +1,11 @@
 services:
 # name of image
   my-node-image:
+    build:
+    # build from Dockerfile
+      context: .
+      # send arguments to Dockerfile
+      args:
+        - NODE_ENV=development
     environment:
     - NODE_ENV=production       # Force production environment
