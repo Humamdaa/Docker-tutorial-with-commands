@@ -168,3 +168,7 @@ docker-compose.yml – Contains common configuration for all environments.
 docker-compose.dev.yml – Contains development-specific overrides.
 
 docker-compose.prod.yml – Contains production-specific overrides.
+
+=====================================================================
+
+#### install specific dependency for production and development 
