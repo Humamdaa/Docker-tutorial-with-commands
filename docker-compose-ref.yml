@@ -5,8 +5,13 @@ services:
     container_name: express-container
     # will map with Dockerfile 
     build: .
+    volumes:
+    - ./src:/app/src:ro
     ports:
-      - "4000:4000"
+    - "4000:4000"
+    environment:
+    - PORT=4000                 # Explicit port setting
+    - NODE_ENV=production       # Force production environment
   # For many variables, use .env file instead 
     env_file:
     - ./.env                    # Load all variables from .env file

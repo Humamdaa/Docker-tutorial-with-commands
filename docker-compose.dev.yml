@@ -1,0 +1,8 @@
+services:
+# name of image
+  my-node-image:
+    volumes:
+    - ./src:/app/src:ro
+    environment:
+    - NODE_ENV=development       # Force development environment
+ 

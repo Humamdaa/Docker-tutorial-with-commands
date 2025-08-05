@@ -121,4 +121,50 @@ docker-compose down # Stops and removes containers
 
     docker run --name express-container -v ${pwd}/src:/app/src:ro --env-file ./.env -d -p 4000:4000 my-node-image
 
-4-inside docker-compose.yml file 
+4-inside docker-compose.yml file
+
+=======================================================
+
+#### **Managing Docker Across Environments**
+
+**Solution**: Create separate docker-compose files for each environment (development, staging, production).
+
+**Why?**
+Each environment has unique requirements:
+
+Different configurations (ports, volumes)
+
+Environment-specific dependencies
+
+Separate security rules and scaling needs
+
+Example :
+**_Development vs Production Volumes :_**
+docker-compose-dev.yml (Development)
+volumes:
+
+- ./src:/app/src # Live code updates (edit locally → auto-updates in container)
+
+docker-compose-prod.yml (Production)
+No volumes → Code stays static in container (better security & stability)
+
+**Why?**
+Development: You need instant code changes → volumes sync your local files
+
+Production: Code shouldn't change after deployment → no volumes = safer/faster
+
+**▶️To run with a specific Compose file**
+docker-compose -f docker-compose.dev.yml up -d
+docker-compose -f docker-compose.dev.yml down
+
+Use -f to choose the desired file.
+
+====================================================
+
+#### 🧼 **Clean Docker Compose Setup**
+📁  
+docker-compose.yml – Contains common configuration for all environments.
+
+docker-compose.dev.yml – Contains development-specific overrides.
+
+docker-compose.prod.yml – Contains production-specific overrides.

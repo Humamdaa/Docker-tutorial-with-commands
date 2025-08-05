@@ -1,0 +1,5 @@
+services:
+# name of image
+  my-node-image:
+    environment:
+    - NODE_ENV=production       # Force production environment
