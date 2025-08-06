@@ -4,12 +4,9 @@ services:
     build:
     # build from ?
       context: .
-      # send arguments to Dockerfile
-      args:
-        - NODE_ENV=development
+      target: development
     volumes:
     - ./src:/app/src:ro
     environment:
     - NODE_ENV=development       # Force development environment
-  #  run project without nodemon
-    command: npm run start-dev
+  

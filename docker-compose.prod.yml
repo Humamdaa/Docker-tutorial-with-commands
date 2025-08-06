@@ -4,8 +4,8 @@ services:
     build:
     # build from Dockerfile
       context: .
-      # send arguments to Dockerfile
-      args:
-        - NODE_ENV=development
+      target: production
     environment:
     - NODE_ENV=production       # Force production environment
+  #  run project without nodemon
+    command: npm run start-dev

@@ -198,6 +198,8 @@ command: npm run start-dev
 
 #### 🚧 2. Install Dependencies Based on Environment
 
+- **FIRST WAY :Using Build Arguments**
+
 Add the following to your configuration files:
 
 ###### 🐳 Dockerfile
@@ -225,6 +227,40 @@ context: .
 args: - NODE_ENV=production
 ```
 
+- **SECOND WAY: Multi-Stage Dockerfile**
+
+**_Development Stage :_**
+
+FROM node:22-alpine as development
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 4000
+
+CMD ["npm", "run", "dev-start"]
+
+**_Production Stage :_**
+FROM node:22-alpine as production
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm install --only=production
+
+COPY . .
+
+EXPOSE 4000
+
+CMD ["npm", "start"]
+
+make many stages in Dockerfile
 ✅ What This Setup Does:
 
 🛠️ In development, it installs all dependencies (including dev ones).

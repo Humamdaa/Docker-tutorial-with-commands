@@ -4,7 +4,6 @@ services:
 # name of container
     container_name: express-container
     # will map with Dockerfile 
-    build: .
     ports:
       - "4000:4000"
   # For many variables, use .env file instead 
