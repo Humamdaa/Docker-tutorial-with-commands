@@ -1,11 +1,21 @@
+version: "3"
 services:
 # name of image
   my-node-image:
-# name of container
+    # name of container
     container_name: express-container
     # will map with Dockerfile 
     ports:
       - "4000:4000"
-  # For many variables, use .env file instead 
+    # For many variables, use .env file instead 
     env_file:
     - ./.env                    # Load all variables from .env file
+
+# mongoDB service
+  mongo:
+    image: mongo
+    restart: always
+    container_name: mongo_container
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example  

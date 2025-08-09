@@ -229,38 +229,8 @@ args: - NODE_ENV=production
 
 - **SECOND WAY: Multi-Stage Dockerfile**
 
-**_Development Stage :_**
+To manage dependencies efficiently in different environments (development vs production), we use a **Multi-Stage Dockerfile**.
 
-FROM node:22-alpine as development
-
-WORKDIR /app
-
-COPY package.json .
-
-RUN npm install
-
-COPY . .
-
-EXPOSE 4000
-
-CMD ["npm", "run", "dev-start"]
-
-**_Production Stage :_**
-FROM node:22-alpine as production
-
-WORKDIR /app
-
-COPY package.json .
-
-RUN npm install --only=production
-
-COPY . .
-
-EXPOSE 4000
-
-CMD ["npm", "start"]
-
-make many stages in Dockerfile
 ✅ What This Setup Does:
 
 🛠️ In development, it installs all dependencies (including dev ones).
@@ -268,3 +238,23 @@ make many stages in Dockerfile
 🚀 In production, it installs only production dependencies.
 
 🔁 Helps avoid using Nodemon in environments where it’s not needed.
+
+==============================================================
+
+#### MongoDB Service in Docker Compose
+
+**Service Name: mongo**
+
+- Image: Official MongoDB image from Docker Hub.
+
+- Restart Policy: always → Restarts if stopped or if Docker restarts.
+
+- Container Name: mongo_container
+
+- Environment Variables:
+
+- MONGO_INITDB_ROOT_USERNAME → Root username for MongoDB.
+
+- MONGO_INITDB_ROOT_PASSWORD → Root password for MongoDB.
+
+- Default Port: 27017 (exposed inside container).
