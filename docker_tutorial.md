@@ -277,7 +277,7 @@ docker-compose -f docker-compose.yml -f docker-compose.dev.yml down
 
 #### ⚠️ Problem connecting to MongoDB on localhost
 
-###### Initial configuration (not working from Docker container):
+##### Initial configuration (not working from Docker container):
 
 ```
 MONGO_URI=mongodb://localhost:27017/node_with_docker
@@ -296,3 +296,26 @@ MONGO_URI=mongodb://host.docker.internal:27017/node_with_docker
 - host.docker.internal points to your host machine from inside the container.
 
 - This allows your Node container to access the MongoDB running locally on your host.
+
+================================================================
+
+#### 🐳 Inspect a Docker Container
+
+- **Command:**
+
+```
+docker inspect mongo_container
+```
+
+- Shows detailed information about the container mongo_container
+
+================================================================
+
+#### List Docker Networks
+
+```
+docker network ls
+```
+
+- Lists all Docker networks on your system.
+
