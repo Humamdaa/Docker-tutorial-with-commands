@@ -44,7 +44,7 @@ docker ps -a ----> List all containers (including stopped)
 
 docker images ----> List all images
 
-docker logs my-container ----> View container logs
+docker logs my -f ----> View container logs, -f : follow the log output
 
 ======================================================
 
@@ -239,6 +239,20 @@ To manage dependencies efficiently in different environments (development vs pro
 
 🔁 Helps avoid using Nodemon in environments where it’s not needed.
 
+#### Run Docker Compose with development configuration in detached mode and rebuild images:
+
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+
+📜 How Docker Compose reads files ??!
+
+- 1- Loads docker-compose.yml as the base.
+
+- 2- Applies overrides from docker-compose.dev.yml.
+
+#### Stop it :
+
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml down
+
 ==============================================================
 
 #### MongoDB Service in Docker Compose
@@ -258,3 +272,27 @@ To manage dependencies efficiently in different environments (development vs pro
 - MONGO_INITDB_ROOT_PASSWORD → Root password for MongoDB.
 
 - Default Port: 27017 (exposed inside container).
+
+======================================================================
+
+#### ⚠️ Problem connecting to MongoDB on localhost
+
+###### Initial configuration (not working from Docker container):
+
+```
+MONGO_URI=mongodb://localhost:27017/node_with_docker
+```
+
+##### ❌ Reason: localhost inside the container points to the container itself, not your host machine.
+
+- Fixed configuration (works from Docker container):
+
+```
+MONGO_URI=mongodb://host.docker.internal:27017/node_with_docker
+```
+
+#### ✅ Explanation:
+
+- host.docker.internal points to your host machine from inside the container.
+
+- This allows your Node container to access the MongoDB running locally on your host.
