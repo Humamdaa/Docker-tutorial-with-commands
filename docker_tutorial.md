@@ -337,3 +337,12 @@ const DB_HOST = 'mongo'; // Use the service name
 
 - mongo matches the service name in your docker-compose.yml.
 - Docker automatically resolves container names to IPs within the same network.
+
+================================================================
+
+```
+docker exec -it mongo_container mongosh -u root -p
+```
+
+- **✅ Effect: You get an interactive MongoDB shell inside the running container.**
+
