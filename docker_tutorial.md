@@ -346,3 +346,25 @@ docker exec -it mongo_container mongosh -u root -p
 
 - **✅ Effect: You get an interactive MongoDB shell inside the running container.**
 
+==================================================================
+
+#### Volumes list
+
+```
+docker volume ls
+```
+
+#### delete volume
+
+```
+docker volume rm name of volume
+```
+
+##### delete unused volumes
+
+```
+docker volume prune
+```
+
+===================================================================
+
