@@ -341,7 +341,7 @@ const DB_HOST = 'mongo'; // Use the service name
 ================================================================
 
 ```
-docker exec -it mongo_container mongosh -u root -p
+docker exec -it mongo_container mongosh -u root -p example
 ```
 
 - **✅ Effect: You get an interactive MongoDB shell inside the running container.**
@@ -368,3 +368,27 @@ docker volume prune
 
 ===================================================================
 
+#### 🗄️ Persisting MongoDB Data in Docker
+
+- **Problem:** When you restart the MongoDB container, all data is lost because it is stored inside the container.
+
+- **Solution:** Use a Docker volume to persist MongoDB data across container restarts.
+
+
+==================================================================
+
+#### shut down container and delte volumes :
+
+```
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml dwon -v
+```
+
+================================================================
+
+#### 📦 Types of volumes :
+
+- 1.Named volumes (like mongo-db) → Managed by Docker, stored in Docker’s default location.
+
+- 2.Bind mounts → Map a host machine directory to the container directory (e.g., ./data:/data/db).
+
+- 3.Anonymous volumes → Created automatically, unnamed, less controllable.
