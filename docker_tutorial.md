@@ -319,3 +319,21 @@ docker network ls
 
 - Lists all Docker networks on your system.
 
+===========================================================
+
+#### 🌐 Connecting to online MongoDB from Docker
+
+- Example (❌ wrong):
+
+```
+const DB_HOST = '127.27.0.2'; // IP that probably doesn’t work, you must change it manually
+```
+
+- Example (✅ correct):
+
+```
+const DB_HOST = 'mongo'; // Use the service name
+```
+
+- mongo matches the service name in your docker-compose.yml.
+- Docker automatically resolves container names to IPs within the same network.
